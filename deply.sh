@@ -74,7 +74,7 @@ fi
 
 # Update the old config map with new
 echo "=========================================================="
-echo "Generate CONFIG MAP"
+echo "CONFIGURING CONFIG MAP"
 if (kubectl get configmaps api-map --namespace ${CLUSTER_NAMESPACE}) then
   echo "api-map fouded, replacing it"
   kubectl create configmap api-map --from-env-file=api.env --namespace ${CLUSTER_NAMESPACE} -o yaml --dry-run | kubectl replace -f -
