@@ -74,7 +74,10 @@ fi
 
 echo "=========================================================="
 echo "Generate CONFIG MAP"
-kubectl create configmap api-map --from-env-file=api.env --namespace ${CLUSTER_NAMESPACE} -o yaml --dry-run | kubectl replace -f -
+if (kubectl get configmaps api-map -o yaml) then
+  kubectl create configmap api-map --from-env-file=api.env --namespace ${CLUSTER_NAMESPACE} -o yaml --dry-run | kubectl replace -f -
+else
+fi
 kubectl create configmap assistant-map --from-env-file=ibm-credentials-as.env --namespace ${CLUSTER_NAMESPACE} -o yaml --dry-run | kubectl replace -f -
 
 # Grant access to private image registry from namespace $CLUSTER_NAMESPACE
