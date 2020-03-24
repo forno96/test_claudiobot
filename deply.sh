@@ -75,17 +75,17 @@ fi
 echo "=========================================================="
 echo "Generate CONFIG MAP"
 
-#if (kubectl get configmaps api-map --namespace ${CLUSTER_NAMESPACE} -o yaml) then
-#  kubectl create configmap api-map --from-env-file=api.env --namespace ${CLUSTER_NAMESPACE} -o yaml --dry-run | kubectl replace -f -
-#else
+if (kubectl get configmaps api-map --namespace ${CLUSTER_NAMESPACE}) then
+  kubectl create configmap api-map --from-env-file=api.env --namespace ${CLUSTER_NAMESPACE} -o yaml --dry-run | kubectl replace -f -
+else
   kubectl create configmap api-map --from-env-file=api.env --namespace ${CLUSTER_NAMESPACE} -o yaml --dry-run | kubectl apply -f -
-#fi
+fi
 
-#if (kubectl get configmaps assistant-map --namespace ${CLUSTER_NAMESPACE} -o yaml) then
-#  kubectl create configmap assistant-map --from-env-file=ibm-credentials-as.env --namespace ${CLUSTER_NAMESPACE} -o yaml --dry-run | kubectl replace -f -
-#else
+if (kubectl get configmaps assistant-map --namespace ${CLUSTER_NAMESPACE}) then
+  kubectl create configmap assistant-map --from-env-file=ibm-credentials-as.env --namespace ${CLUSTER_NAMESPACE} -o yaml --dry-run | kubectl replace -f -
+else
   kubectl create configmap assistant-map --from-env-file=ibm-credentials-as.env --namespace ${CLUSTER_NAMESPACE} -o yaml --dry-run | kubectl apply -f -
-#fi
+fi
 
 # Grant access to private image registry from namespace $CLUSTER_NAMESPACE
 # reference https://cloud.ibm.com/docs/containers?topic=containers-images#other_registry_accounts
