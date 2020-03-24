@@ -79,7 +79,12 @@ if (kubectl get configmaps api-map -o yaml) then
 else
   kubectl create configmap api-map --from-env-file=api.env --namespace ${CLUSTER_NAMESPACE} -o yaml --dry-run | kubectl apply -f -
 fi
-kubectl create configmap assistant-map --from-env-file=ibm-credentials-as.env --namespace ${CLUSTER_NAMESPACE} -o yaml --dry-run | kubectl replace -f -
+
+if (kubectl get configmaps assistant-map -o yaml) then
+  kubectl create configmap assistant-map --from-env-file=ibm-credentials-as.env --namespace ${CLUSTER_NAMESPACE} -o yaml --dry-run | kubectl replace -f -
+else
+  kubectl create configmap assistant-map --from-env-file=ibm-credentials-as.env --namespace ${CLUSTER_NAMESPACE} -o yaml --dry-run | kubectl apply -f -
+fi
 
 # Grant access to private image registry from namespace $CLUSTER_NAMESPACE
 # reference https://cloud.ibm.com/docs/containers?topic=containers-images#other_registry_accounts
