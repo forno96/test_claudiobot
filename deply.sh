@@ -77,6 +77,7 @@ echo "Generate CONFIG MAP"
 if (kubectl get configmaps api-map -o yaml) then
   kubectl create configmap api-map --from-env-file=api.env --namespace ${CLUSTER_NAMESPACE} -o yaml --dry-run | kubectl replace -f -
 else
+  kubectl create configmap api-map --from-env-file=api.env --namespace ${CLUSTER_NAMESPACE} -o yaml --dry-run | kubectl apply -f -
 fi
 kubectl create configmap assistant-map --from-env-file=ibm-credentials-as.env --namespace ${CLUSTER_NAMESPACE} -o yaml --dry-run | kubectl replace -f -
 
