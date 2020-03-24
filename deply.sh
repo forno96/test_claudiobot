@@ -72,18 +72,21 @@ else
   echo -e "Namespace ${CLUSTER_NAMESPACE} created."
 fi
 
+# Update the old config map with new
 echo "=========================================================="
 echo "Generate CONFIG MAP"
-
 if (kubectl get configmaps api-map --namespace ${CLUSTER_NAMESPACE}) then
+  echo "api-map fouded, replacing it"
   kubectl create configmap api-map --from-env-file=api.env --namespace ${CLUSTER_NAMESPACE} -o yaml --dry-run | kubectl replace -f -
 else
+  echo "api-map not fouded, creating it"
   kubectl create configmap api-map --from-env-file=api.env --namespace ${CLUSTER_NAMESPACE} -o yaml --dry-run | kubectl apply -f -
 fi
-
 if (kubectl get configmaps assistant-map --namespace ${CLUSTER_NAMESPACE}) then
+  echo "assistant-map fouded, replacing it"
   kubectl create configmap assistant-map --from-env-file=ibm-credentials-as.env --namespace ${CLUSTER_NAMESPACE} -o yaml --dry-run | kubectl replace -f -
 else
+  echo "assistant-map not fouded, creating it"
   kubectl create configmap assistant-map --from-env-file=ibm-credentials-as.env --namespace ${CLUSTER_NAMESPACE} -o yaml --dry-run | kubectl apply -f -
 fi
 
