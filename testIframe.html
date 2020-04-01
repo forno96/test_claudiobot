@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+
+  <h1>Test iframe</h1>
+
+  <iframe src="http://159.122.149.181:31302/" style="width: 600px; height: 800px;">
+    <p>Your browser does not support iframes.</p>
+  </iframe>
+
+  <script src="https://web-chat.global.assistant.watson.cloud.ibm.com/loadWatsonAssistantChat.js"></script>
+  <script>
+    window.loadWatsonAssistantChat({
+      integrationID: "98f15781-6c51-4a99-92e2-b0a0740a5316", // The ID of this integration.
+      region: "eu-de" // The region your integration is hosted in.
+    }).then(function(instance) {
+      instance.render();
+    });
+  </script>
+
+</body>
+
+</html>
