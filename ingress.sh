@@ -38,7 +38,7 @@ DEPLOYMENT=$(cat <<EOF''
 apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
-  name: ClaudioIngress
+  name: claudio-ingress
 spec:
   rules:
   - host: devbo-kubestd-mi01-feb0a24d32c3bf6b1218d75d58d7acb5-0000.mil01.containers.appdomain.cloud
